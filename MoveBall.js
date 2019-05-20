@@ -1,0 +1,120 @@
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
+
+
+//todo: make the ball expand and contract 
+//      change the angle when the ball hits the wall - modify xSpeed or ySpeed
+class MoveBall extends React.Component {
+	constructor() {
+       super();
+       this.state = { x: 50, 
+	                  y: 50,
+					  xInc: true,
+					  yInc: true,
+					  xSpeed: 5,
+					  ySpeed: 15,
+					  diameter: 60,
+                      seconds: 0};
+	}
+	
+	timerEvent = () => {
+		//get the dimensions of the screen
+		let deviceWidth = Dimensions.get('window').width;
+		let deviceHeight = Dimensions.get('window').height;
+		
+		//update the current x coordinates
+		let curX = this.state.x;
+		let curXDir = this.state.xInc;
+		if (curXDir) {
+			curX += this.state.xSpeed;
+			if (curX > deviceWidth-this.state.diameter) {
+				curXDir = false;
+			}
+		}
+		else  {
+			curX -= this.state.xSpeed;
+			if (curX < 0) {
+				curXDir = true;
+			}
+		}
+		
+		//update the current y coordinates
+		let curY = this.state.y;
+		let curYDir = this.state.yInc;
+		if (curYDir) {
+			curY += this.state.ySpeed;
+			if (curY > deviceHeight) {
+				curYDir = false;
+			}
+		}
+		else  {
+			curY -= this.state.ySpeed;
+			if (curY < 0) {
+				curYDir = true;
+			}
+		}
+		//update state with local variables
+        this.setState( {x: curX, y: curY, xInc: curXDir, yInc: curYDir} );
+    };
+  
+  componentDidMount() {
+    setInterval( this.timerEvent, 20 );  
+  }
+  
+  ballStyle = function(options) {
+     return {
+      position: "absolute",
+      right: this.state.x,
+      top: this.state.y,
+      height: this.state.diameter,
+	  width: this.state.diameter,
+	  borderRadius: this.state.diameter/2,
+	  backgroundColor: 'red',
+     }
+ }
+  
+   render() {
+      return (
+	    <View style={styles.container}>
+		  <View style={styles.timerView}>
+             <Text style = {styles.textCenter}>
+                  x: {round(this.state.x)} y: {round(this.state.y)} 
+              </Text>
+          </View>
+		  <View style={this.ballStyle()}>
+		  </View>
+		</View>
+	  );
+  }
+}
+function round(n) {
+  if (!n) {
+    return 0;
+  }
+  return Math.round(n);
+}
+
+const styles = StyleSheet.create({
+   container: {
+      flex: 1,
+	  backgroundColor: 'lightblue',
+	  },
+  timerView: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+  },
+  buttonView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textCenter: {
+        fontSize: 60,
+        textAlign: 'center',
+        color: 'black',
+    },
+});
+
+export default MoveBall;
