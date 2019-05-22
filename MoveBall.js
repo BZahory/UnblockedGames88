@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 
+Expo.ScreenOrientation.allow(Expo.ScreenOrientation.LANDSCAPE_RIGHT);
 
 //todo: make the ball expand and contract
 //      change the angle when the ball hits the wall - modify xSpeed or ySpeed
@@ -8,12 +9,20 @@ class MoveBall extends React.Component {
 	constructor() {
        super();
        this.state = { x: 50,
+<<<<<<< HEAD
 	                  y: 50,
+=======
+	                  y: 205,
+>>>>>>> 4314560ebb73e843a12b22b4d362c82ef22afca5
 					  xInc: true,
 					  yInc: true,
 					  xSpeed: 5,
 					  ySpeed: 15,
+<<<<<<< HEAD
 						yAccel: 1,
+=======
+						yAccel: 2,
+>>>>>>> 4314560ebb73e843a12b22b4d362c82ef22afca5
 					  diameter: 60,
                       seconds: 0};
 	}
@@ -27,8 +36,9 @@ class MoveBall extends React.Component {
 		let curX = this.state.x;
 		let curXDir = this.state.xInc;
 		if (curXDir) {
+			
 			curX += this.state.xSpeed;
-			if (curX > deviceWidth-this.state.diameter) {
+			if (curX > deviceWidth-this.state.diameter-20) {
 				curXDir = false;
 			}
 		}
@@ -43,17 +53,24 @@ class MoveBall extends React.Component {
 		let curY = this.state.y;
 		let curYDir = this.state.yInc;
 		if (curYDir) {
+<<<<<<< HEAD
 			this.state.ySpeed -= this.state.yAccel;
+=======
+			this.state.ySpeed += this.state.yAccel;
+>>>>>>> 4314560ebb73e843a12b22b4d362c82ef22afca5
 			curY += this.state.ySpeed;
-			if (curY > deviceHeight) {
-				curYDir = false;
+			if (curY > deviceHeight-100) {
+				this.state.ySpeed *= -1;
 			}
+<<<<<<< HEAD
 		}
 		else  {
 			this.state.ySpeed -= this.state.yAccel;
 			curY -= this.state.ySpeed;
+=======
+>>>>>>> 4314560ebb73e843a12b22b4d362c82ef22afca5
 			if (curY < 0) {
-				curYDir = true;
+				this.state.ySpeed *= -1;
 			}
 		}
 		//update state with local variables
