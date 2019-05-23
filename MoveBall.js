@@ -49,6 +49,10 @@ class MoveBall extends React.Component {
 			curY += this.state.ySpeed;
 			if (curY > deviceHeight-100) {
 				this.state.ySpeed *= -1;
+				if(this.state.ySpeed<2){
+					this.state.ySpeed = 0;
+				}
+				
 			}
 			if (curY < 0) {
 				this.state.ySpeed *= -1;
