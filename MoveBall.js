@@ -28,6 +28,7 @@ class MoveBall extends React.Component {
 		let deviceHeight = Dimensions.get('window').height;
 
 		//update the current x coordinates
+<<<<<<< HEAD
 		let curY = this.state.y;
 		let curYDir = this.state.yInc;
 
@@ -35,6 +36,15 @@ class MoveBall extends React.Component {
 			curY += this.state.ySpeed;
 			if (curY > deviceHeight-this.state.diameter-20) {
 				curYDir = false;
+=======
+		let curX = this.state.x;
+		let curXDir = this.state.xInc;
+		if (curXDir) {
+
+			curX += this.state.xSpeed;
+			if (curX > deviceWidth-this.state.diameter-20) {
+				curXDir = false;
+>>>>>>> 6281fc81c46a7684f2266056a4a52e0751ea2e7d
 			}
 		}
 		else  {
