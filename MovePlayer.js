@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableHighlight } from 'react-native';
 import { ScreenOrientation } from 'expo';
 
 function changeScreenOrientation() {
@@ -9,6 +9,7 @@ function changeScreenOrientation() {
 //get the dimensions of the screen
 let deviceWidth = Dimensions.get('window').width;
 let deviceHeight = Dimensions.get('window').height;
+
 
 //todo: make the ball expand and contract
 //      change the angle when the ball hits the wall - modify xSpeed or ySpeed
@@ -26,38 +27,51 @@ class MovePlayer extends React.Component {
                       seconds: 0};
 	}
 
-	timerEvent = () => {
+  left = () => {
+    this.state.xSpeed = 5;
+  }
 
-		//update the current x coordinates
+  right = () => {
+    this.state.xSpeed = -5;
+  }
+
+  jump = () => {
+    this.state.ySpeed = -35;
+  }
+
+	timerEvent = () => {
+    //update the current x coordinates
 		let curX = this.state.x;
 		let curXDir = this.state.xInc;
-		if (curXDir) {
 
-			curX += this.state.xSpeed;
-			if (curX > deviceWidth-this.state.diameter-20) {
-				curXDir = false;
-			}
-		}
-		else  {
-			curX -= this.state.xSpeed;
-			if (curX < 0) {
-				curXDir = true;
-			}
+    curX += this.state.xSpeed;
+		if (curX > deviceWidth-this.state.diameter) {
+			this.state.xSpeed *= -1;
 		}
 
-		//update the current y coordinates
+		if (curX < 0) {
+			this.state.xSpeed *= -1;
+		}
+
 		let curY = this.state.y;
 		let curYDir = this.state.yInc;
-		if (curYDir) {
+
+
+		if (this.state.ySpeed <= 10 && this.state.ySpeed >= 0 && curY >= deviceHeight-100) {
+			this.state.ySpeed = 0;
+			curY = deviceHeight-this.state.diameter;
+		} else if (curYDir) {
 			this.state.ySpeed += this.state.yAccel;
 			curY += this.state.ySpeed;
+
 			if (curY > deviceHeight-100) {
 				this.state.ySpeed *= -1;
+
 			}
 			if (curY < 0) {
 				this.state.ySpeed *= -1;
 			}
-		}
+    }
 		//update state with local variables
         this.setState( {x: curX, y: curY, xInc: curXDir, yInc: curYDir} );
     };
@@ -82,22 +96,17 @@ class MovePlayer extends React.Component {
       return (
 	       <View style={styles.container}>
 		       <View style={styles.timerView}>
-             <View onTouchStart={onUpIn} onTouchEnd={onUpOut}>
-               <TouchableHighlight>
-                 <Text> < </Text>
+               <TouchableHighlight style={styles.buttonView} onPress={this.left}>
+                 <Text> L </Text>
                </TouchableHighlight>
-             </View>
 
-             <View onTouchStart={onUpIn} onTouchEnd={onUpOut}>
-               <TouchableHighlight>
-                 <Text> > </Text>
+               <TouchableHighlight style={styles.buttonView} onPress={this.right}>
+                 <Text> R </Text>
                </TouchableHighlight>
-             </View>
-               <View onTouchStart={onUpIn} onTouchEnd={onUpOut}>
-                 <TouchableHighlight>
+
+                 <TouchableHighlight style={styles.buttonView} onPress={this.jump}>
                    <Text> ^ </Text>
                  </TouchableHighlight>
-               </View>
            </View>
 		       <View style={this.ballStyle()}>
 		       </View>
@@ -118,15 +127,14 @@ const styles = StyleSheet.create({
 	  backgroundColor: 'lightblue',
 	  },
   timerView: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-
   },
   buttonView: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   textCenter: {
         fontSize: 60,
