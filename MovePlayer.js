@@ -142,16 +142,16 @@ class MovePlayer extends React.Component {
                </View>
                
                <View style={styles.buttonView}>
-               <TouchableHighlight style={styles.buttonView} onPress={this.left}>
+               <TouchableHighlight style={styles.button} onPress={this.left}>
                  <Text style={styles.buttonText}> L </Text>
                </TouchableHighlight>
                
                
-               <TouchableHighlight style={styles.buttonView} onPress={this.right}>
+               <TouchableHighlight style={styles.button} onPress={this.right}>
                  <Text style={styles.buttonText}> R </Text>
                </TouchableHighlight>
 
-               <TouchableHighlight style={styles.buttonView} onPress={this.jump}>
+               <TouchableHighlight style={styles.button} onPress={this.jump}>
                  <Text style={styles.buttonText}> ^ </Text>
                </TouchableHighlight>
             </View>
@@ -192,7 +192,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 50,
+    textAlign: 'center',
     backgroundColor: 'blue',
+  },
+  button: {
+    flex:1,
+    opacity: .5,
   },
   textCenter: {
         fontSize: 60,
