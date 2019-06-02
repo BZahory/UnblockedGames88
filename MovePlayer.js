@@ -67,7 +67,7 @@ class MovePlayer extends React.Component {
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
-        
+
         this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
       }
     }
@@ -81,7 +81,7 @@ class MovePlayer extends React.Component {
       curY = deviceHeight-this.state.diameter;
       this.state.xSpeed = 0;
         this.state.ySpeed = 0;
-        
+
         this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
     } else if (curYDir) {
       this.state.ySpeed += this.state.yAccel;
@@ -93,7 +93,7 @@ class MovePlayer extends React.Component {
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
-        
+
         this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
       }
         curY -= this.state.ySpeed;
@@ -106,7 +106,7 @@ class MovePlayer extends React.Component {
   componentDidMount() {
     setInterval( this.timerEvent, 20 );
   }
-  
+
   getTime() {
     if(this.state.timeFactor===1){
       return this.state.time;
@@ -138,17 +138,19 @@ class MovePlayer extends React.Component {
                       {this.state.gameOverText}
                   </Text>
                </View>
+               <View style={styles.buttonView}>
                <TouchableHighlight style={styles.buttonView} onPress={this.left}>
-                 <Text> L </Text>
+                 <Text styles={styles.buttonText}> L </Text>
                </TouchableHighlight>
 
                <TouchableHighlight style={styles.buttonView} onPress={this.right}>
-                 <Text> R </Text>
+                 <Text styles={styles.buttonText}> R </Text>
                </TouchableHighlight>
 
-                 <TouchableHighlight style={styles.buttonView} onPress={this.jump}>
-                   <Text> ^ </Text>
-                 </TouchableHighlight>
+               <TouchableHighlight style={styles.buttonView} onPress={this.jump}>
+                 <Text styles={styles.buttonText}> ^ </Text>
+               </TouchableHighlight>
+             </View>
            </View>
 		       <View style={this.ballStyle()}>
 		       </View>
@@ -180,6 +182,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     flexDirection: 'row',
+  },
+  buttonText: {
+    fontSize: 20,
   },
   textCenter: {
         fontSize: 60,
