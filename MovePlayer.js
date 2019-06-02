@@ -27,6 +27,7 @@ class MovePlayer extends React.Component {
             time: 0,
           ballCol: 'blue',
           timeFactor:1,
+          gameOverText: "",
         };
 
 	}
@@ -56,6 +57,7 @@ class MovePlayer extends React.Component {
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
+        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
       }
     }
     else {
@@ -65,6 +67,8 @@ class MovePlayer extends React.Component {
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
+        
+        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
       }
     }
 
@@ -77,6 +81,8 @@ class MovePlayer extends React.Component {
       curY = deviceHeight-this.state.diameter;
       this.state.xSpeed = 0;
         this.state.ySpeed = 0;
+        
+        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
     } else if (curYDir) {
       this.state.ySpeed += this.state.yAccel;
       curY += this.state.ySpeed;
@@ -87,6 +93,8 @@ class MovePlayer extends React.Component {
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
+        
+        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
       }
         curY -= this.state.ySpeed;
     }
@@ -97,6 +105,13 @@ class MovePlayer extends React.Component {
 
   componentDidMount() {
     setInterval( this.timerEvent, 20 );
+  }
+  
+  getTime() {
+    if(this.state.timeFactor===1){
+      return this.state.time;
+    }
+    return "";
   }
 
   ballStyle = function(options) {
@@ -117,8 +132,11 @@ class MovePlayer extends React.Component {
 		       <View style={styles.timerView}>
                <View style={styles.scoreView}>
                  <Text style={styles.score}>
-                   {this.state.time}
+                   {this.getTime()}
                  </Text>
+                 <Text style = {styles.textCenter}>
+                      {this.state.gameOverText}
+                  </Text>
                </View>
                <TouchableHighlight style={styles.buttonView} onPress={this.left}>
                  <Text> L </Text>
