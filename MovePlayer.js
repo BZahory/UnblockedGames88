@@ -83,19 +83,18 @@ class MovePlayer extends React.Component {
         this.state.ySpeed = 0;
 
         this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
-    } else if (curYDir) {
+    }else if (curY < 0) {
+      this.state.ballCol= 'green';
+      this.state.xSpeed = 0;
+      this.state.ySpeed = 0;
+      this.state.timeFactor = 0;
+
+      this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
+    }else if (curYDir) {
       this.state.ySpeed += this.state.yAccel;
       curY += this.state.ySpeed;
 
-    }else{
-      if (curY < 0) {
-        this.state.ballCol= 'green';
-        this.state.xSpeed = 0;
-        this.state.ySpeed = 0;
-        this.state.timeFactor = 0;
-
-        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
-      }
+    }else{  
         curY -= this.state.ySpeed;
     }
 
