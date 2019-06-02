@@ -48,40 +48,44 @@ class MovePlayer extends React.Component {
     let curX = this.state.x;
     let curXDir = this.state.xInc;
     if (curXDir) {
-      
+
       curX += this.state.xSpeed;
       if (curX > deviceWidth-this.state.diameter) {
         this.state.ballCol= 'black';
-        curXDir = false;
+        this.state.xSpeed = 0;
+        this.state.ySpeed = 0;
       }
     }
     else {
       curX -= this.state.xSpeed;
       if (curX < 0) {
         this.state.ballCol= 'pink';
-        curXDir = true;
+        this.state.xSpeed = 0;
+        this.state.ySpeed = 0;
       }
     }
-    
+
     let curY = this.state.y;
     let curYDir = this.state.yInc;
-    
+
     if (curY >= deviceHeight-this.state.diameter) {
       this.state.ballCol= 'yellow';
       curY = deviceHeight-this.state.diameter;
-      curYDir = false;
+      this.state.xSpeed = 0;
+        this.state.ySpeed = 0;
     } else if (curYDir) {
       this.state.ySpeed += this.state.yAccel;
       curY += this.state.ySpeed;
-      
+
     }else{
       if (curY < 0) {
         this.state.ballCol= 'green';
-        curYDir = true;
+        this.state.xSpeed = 0;
+        this.state.ySpeed = 0;
       }
         curY -= this.state.ySpeed;
     }
-    
+
     //update state with local variables
         this.setState( {x: curX, y: curY, xInc: curXDir, yInc: curYDir} );
     };
