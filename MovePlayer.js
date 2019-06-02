@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Dimensions, TouchableHighlight } from 'react-native';
 import { ScreenOrientation } from 'expo';
 
-function changeScreenOrientation() {
-  ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
-}
+//function changeScreenOrientation() {
+//  ScreenOrientation.allowAsync(ScreenOrientation.Orientation.LANDSCAPE);
+//}
 
 //get the dimensions of the screen
 let deviceWidth = Dimensions.get('window').width;
@@ -24,7 +24,9 @@ class MovePlayer extends React.Component {
 					  ySpeed: 15,
 						yAccel: 2,
 					  diameter: 60,
-            time: 0,};
+            time: 0,
+          ballCol: 'blue',
+        };
 
 	}
 
@@ -43,39 +45,44 @@ class MovePlayer extends React.Component {
 	timerEvent = () => {
     this.state.time += 1;
 
-    //update the current x coordinates
-		let curX = this.state.x;
-		let curXDir = this.state.xInc;
-
-    curX += this.state.xSpeed;
-		if (curX > deviceWidth-this.state.diameter) {
-			this.state.xSpeed *= -1;
-		}
-
-		if (curX < 0) {
-			this.state.xSpeed *= -1;
-		}
-
-		let curY = this.state.y;
-		let curYDir = this.state.yInc;
-
-
-		if (this.state.ySpeed <= 10 && this.state.ySpeed >= 0 && curY >= deviceHeight-100) {
-			this.state.ySpeed = 0;
-			curY = deviceHeight-this.state.diameter;
-		} else if (curYDir) {
-			this.state.ySpeed += this.state.yAccel;
-			curY += this.state.ySpeed;
-
-			if (curY > deviceHeight-100) {
-				this.state.ySpeed *= -1;
-
-			}
-			if (curY < 0) {
-				this.state.ySpeed *= -1;
-			}
+    let curX = this.state.x;
+    let curXDir = this.state.xInc;
+    if (curXDir) {
+      
+      curX += this.state.xSpeed;
+      if (curX > deviceWidth-this.state.diameter) {
+        this.state.ballCol= 'black';
+        curXDir = false;
+      }
     }
-		//update state with local variables
+    else {
+      curX -= this.state.xSpeed;
+      if (curX < 0) {
+        this.state.ballCol= 'pink';
+        curXDir = true;
+      }
+    }
+    
+    let curY = this.state.y;
+    let curYDir = this.state.yInc;
+    
+    if (curY >= deviceHeight-this.state.diameter) {
+      this.state.ballCol= 'yellow';
+      curY = deviceHeight-this.state.diameter;
+      curYDir = false;
+    } else if (curYDir) {
+      this.state.ySpeed += this.state.yAccel;
+      curY += this.state.ySpeed;
+      
+    }else{
+      if (curY < 0) {
+        this.state.ballCol= 'green';
+        curYDir = true;
+      }
+        curY -= this.state.ySpeed;
+    }
+    
+    //update state with local variables
         this.setState( {x: curX, y: curY, xInc: curXDir, yInc: curYDir} );
     };
 
@@ -91,7 +98,7 @@ class MovePlayer extends React.Component {
       height: this.state.diameter,
 	  width: this.state.diameter,
 	  borderRadius: this.state.diameter/2,
-	  backgroundColor: 'red',
+	  backgroundColor: this.state.ballCol,
      }
  }
 
