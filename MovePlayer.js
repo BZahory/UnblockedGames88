@@ -53,7 +53,7 @@ class MovePlayer extends React.Component {
 
       curX += this.state.xSpeed;
       if (curX > deviceWidth-this.state.diameter) {
-        this.state.ballCol= 'black';
+        this.state.ballCol= 'red';
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
@@ -63,7 +63,7 @@ class MovePlayer extends React.Component {
     else {
       curX -= this.state.xSpeed;
       if (curX < 0) {
-        this.state.ballCol= 'pink';
+        this.state.ballCol= 'red';
         this.state.xSpeed = 0;
         this.state.ySpeed = 0;
         this.state.timeFactor = 0;
@@ -76,7 +76,7 @@ class MovePlayer extends React.Component {
     let curYDir = this.state.yInc;
 
     if (curY >= deviceHeight-this.state.diameter) {
-      this.state.ballCol= 'yellow';
+      this.state.ballCol= 'red';
       this.state.timeFactor = 0;
       curY = deviceHeight-this.state.diameter;
       this.state.xSpeed = 0;
@@ -84,7 +84,7 @@ class MovePlayer extends React.Component {
 
         this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
     }else if (curY < 0) {
-      this.state.ballCol= 'green';
+      this.state.ballCol= 'red';
       this.state.xSpeed = 0;
       this.state.ySpeed = 0;
       this.state.timeFactor = 0;
