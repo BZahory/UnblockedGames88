@@ -128,31 +128,39 @@ class MovePlayer extends React.Component {
    render() {
       return (
 	       <View style={styles.container}>
+         
 		       <View style={styles.timerView}>
-               <View style={styles.scoreView}>
+           
                  <Text style={styles.score}>
                    {this.getTime()}
                  </Text>
+                 
                  <Text style = {styles.textCenter}>
                       {this.state.gameOverText}
                   </Text>
+                  
                </View>
+               
                <View style={styles.buttonView}>
                <TouchableHighlight style={styles.buttonView} onPress={this.left}>
-                 <Text styles={styles.buttonText}> L </Text>
+                 <Text style={styles.buttonText}> L </Text>
                </TouchableHighlight>
-
+               
+               
                <TouchableHighlight style={styles.buttonView} onPress={this.right}>
-                 <Text styles={styles.buttonText}> R </Text>
+                 <Text style={styles.buttonText}> R </Text>
                </TouchableHighlight>
 
                <TouchableHighlight style={styles.buttonView} onPress={this.jump}>
-                 <Text styles={styles.buttonText}> ^ </Text>
+                 <Text style={styles.buttonText}> ^ </Text>
                </TouchableHighlight>
-             </View>
-           </View>
+            </View>
+            
+            
+           
 		       <View style={this.ballStyle()}>
 		       </View>
+           
 		     </View>
 	  );
   }
@@ -183,7 +191,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 50,
+    backgroundColor: 'blue',
   },
   textCenter: {
         fontSize: 60,
