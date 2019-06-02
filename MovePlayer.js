@@ -24,7 +24,8 @@ class MovePlayer extends React.Component {
 					  ySpeed: 15,
 						yAccel: 2,
 					  diameter: 60,
-                      seconds: 0};
+            time: 0,};
+
 	}
 
   left = () => {
@@ -36,10 +37,12 @@ class MovePlayer extends React.Component {
   }
 
   jump = () => {
-    this.state.ySpeed = -35;
+    this.state.ySpeed = -40;
   }
 
 	timerEvent = () => {
+    this.state.time += 1;
+
     //update the current x coordinates
 		let curX = this.state.x;
 		let curXDir = this.state.xInc;
@@ -96,6 +99,11 @@ class MovePlayer extends React.Component {
       return (
 	       <View style={styles.container}>
 		       <View style={styles.timerView}>
+               <View style={styles.scoreView}>
+                 <Text style={styles.score}>
+                   {this.state.time}
+                 </Text>
+               </View>
                <TouchableHighlight style={styles.buttonView} onPress={this.left}>
                  <Text> L </Text>
                </TouchableHighlight>
@@ -129,6 +137,9 @@ const styles = StyleSheet.create({
   timerView: {
     flex: 1,
     alignItems: 'center',
+  },
+  score: {
+    fontSize: 35,
   },
   buttonView: {
     flex: 1,
