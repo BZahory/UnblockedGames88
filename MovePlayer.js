@@ -26,6 +26,7 @@ class MovePlayer extends React.Component {
 					  diameter: 60,
             time: 0,
           ballCol: 'blue',
+          timeFactor:1,
         };
 
 	}
@@ -43,7 +44,7 @@ class MovePlayer extends React.Component {
   }
 
 	timerEvent = () => {
-    this.state.time += 1;
+    this.state.time += 1*this.state.timeFactor;
 
     let curX = this.state.x;
     let curXDir = this.state.xInc;
@@ -52,6 +53,7 @@ class MovePlayer extends React.Component {
       curX += this.state.xSpeed;
       if (curX > deviceWidth-this.state.diameter) {
         this.state.ballCol= 'black';
+        this.state.timeFactor = 0;
         curXDir = false;
       }
     }
@@ -59,6 +61,7 @@ class MovePlayer extends React.Component {
       curX -= this.state.xSpeed;
       if (curX < 0) {
         this.state.ballCol= 'pink';
+        this.state.timeFactor = 0;
         curXDir = true;
       }
     }
@@ -68,6 +71,7 @@ class MovePlayer extends React.Component {
     
     if (curY >= deviceHeight-this.state.diameter) {
       this.state.ballCol= 'yellow';
+      this.state.timeFactor = 0;
       curY = deviceHeight-this.state.diameter;
       curYDir = false;
     } else if (curYDir) {
@@ -77,6 +81,7 @@ class MovePlayer extends React.Component {
     }else{
       if (curY < 0) {
         this.state.ballCol= 'green';
+        this.state.timeFactor = 0;
         curYDir = true;
       }
         curY -= this.state.ySpeed;
