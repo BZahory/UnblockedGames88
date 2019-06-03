@@ -20,9 +20,9 @@ class MovePlayer extends React.Component {
 	                  y: 205,
 					  xInc: true,
 					  yInc: true,
-					  xSpeed: 5,
-					  ySpeed: 15,
-						yAccel: 2,
+					  xSpeed: 4,
+					  ySpeed: 0,
+						yAccel: 0.5,
 					  diameter: 60,
             time: 0,
           ballCol: 'blue',
@@ -41,7 +41,18 @@ class MovePlayer extends React.Component {
   }
 
   jump = () => {
-    this.state.ySpeed = -40;
+    this.state.ySpeed = -10;
+  }
+
+  restart = () => {
+    this.state.time = 0;
+    this.state.timeFactor = 1;
+    this.state.gameOverText = "";
+    this.state.y = 205;
+    this.state.x = 50;
+    this.state.ySpeed = 0;
+    this.state.xSpeed = 5;
+
   }
 
 	timerEvent = () => {
@@ -94,7 +105,7 @@ class MovePlayer extends React.Component {
       this.state.ySpeed += this.state.yAccel;
       curY += this.state.ySpeed;
 
-    }else{  
+    }else{
         curY -= this.state.ySpeed;
     }
 
@@ -128,25 +139,25 @@ class MovePlayer extends React.Component {
    render() {
       return (
 	       <View style={styles.container}>
-         
+
 		       <View style={styles.timerView}>
-           
+
                  <Text style={styles.score}>
                    {this.getTime()}
                  </Text>
-                 
+
                  <Text style = {styles.textCenter}>
                       {this.state.gameOverText}
                   </Text>
-                  
+
                </View>
-               
-               <View style={styles.buttonView}>
+
+            <View style={styles.buttonView}>
                <TouchableHighlight style={styles.button} onPress={this.left}>
                  <Text style={styles.buttonText}> L </Text>
                </TouchableHighlight>
-               
-               
+
+
                <TouchableHighlight style={styles.button} onPress={this.right}>
                  <Text style={styles.buttonText}> R </Text>
                </TouchableHighlight>
@@ -155,12 +166,16 @@ class MovePlayer extends React.Component {
                  <Text style={styles.buttonText}> ^ </Text>
                </TouchableHighlight>
             </View>
-            
-            
-           
+
+            <View style={styles.buttonView}>
+              <TouchableHighlight style={styles.button} onPress={this.restart}>
+                <Text style={styles.buttonText}> Restart </Text>
+              </TouchableHighlight>
+            </View>
+
 		       <View style={this.ballStyle()}>
 		       </View>
-           
+
 		     </View>
 	  );
   }
