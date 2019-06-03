@@ -31,6 +31,15 @@ class MovePlayer extends React.Component {
         };
 
 	}
+  
+  endGame = () => {
+    this.state.ballCol= 'red';
+    this.state.xSpeed = 0;
+    this.state.ySpeed = 0;
+    this.state.timeFactor = 0;
+
+    this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
+  }
 
   left = () => {
     this.state.xSpeed = 5;
@@ -52,7 +61,7 @@ class MovePlayer extends React.Component {
     this.state.x = 50;
     this.state.ySpeed = 0;
     this.state.xSpeed = 5;
-
+    this.state.ballCol = 'blue';
   }
 
 	timerEvent = () => {
@@ -60,47 +69,28 @@ class MovePlayer extends React.Component {
 
     let curX = this.state.x;
     let curXDir = this.state.xInc;
-    if (curXDir) {
 
+    
+    
+    if (curX >= deviceWidth-this.state.diameter) {
+      this.endGame();
+    }else if (curX < 0) {
+      this.endGame();
+    }else if (curXDir) {
       curX += this.state.xSpeed;
-      if (curX > deviceWidth-this.state.diameter) {
-        this.state.ballCol= 'red';
-        this.state.xSpeed = 0;
-        this.state.ySpeed = 0;
-        this.state.timeFactor = 0;
-        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
-      }
-    }
-    else {
-      curX -= this.state.xSpeed;
-      if (curX < 0) {
-        this.state.ballCol= 'red';
-        this.state.xSpeed = 0;
-        this.state.ySpeed = 0;
-        this.state.timeFactor = 0;
 
-        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
+    }else{
+        curX -= this.state.xSpeed;
       }
-    }
 
+    
     let curY = this.state.y;
     let curYDir = this.state.yInc;
 
     if (curY >= deviceHeight-this.state.diameter) {
-      this.state.ballCol= 'red';
-      this.state.timeFactor = 0;
-      curY = deviceHeight-this.state.diameter;
-      this.state.xSpeed = 0;
-        this.state.ySpeed = 0;
-
-        this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
+      this.endGame();
     }else if (curY < 0) {
-      this.state.ballCol= 'red';
-      this.state.xSpeed = 0;
-      this.state.ySpeed = 0;
-      this.state.timeFactor = 0;
-
-      this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
+      this.endGame();
     }else if (curYDir) {
       this.state.ySpeed += this.state.yAccel;
       curY += this.state.ySpeed;
