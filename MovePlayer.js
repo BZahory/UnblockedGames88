@@ -37,6 +37,7 @@ class MovePlayer extends React.Component {
     this.state.xSpeed = 0;
     this.state.ySpeed = 0;
     this.state.timeFactor = 0;
+    this.state.yAccel = 0;
 
     this.state.gameOverText = "Game Over. \n Your score is: " + this.state.time;
   }
@@ -61,6 +62,7 @@ class MovePlayer extends React.Component {
     this.state.x = 50;
     this.state.ySpeed = 0;
     this.state.xSpeed = 5;
+    this.state.yAccel = 0.5;
     this.state.ballCol = 'blue';
   }
 
